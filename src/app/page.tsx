@@ -21,7 +21,7 @@ import {
   Type,
 } from 'lucide-react'
 
-const SAMPLE_TEXT = 'Selamat Datang di Aksara Lemuria 2026!'
+const SAMPLE_TEXT = 'Samprazaan!'
 
 const LEMURIAN_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 const LEMURIAN_DIGITS = '0123456789'.split('')
