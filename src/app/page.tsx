@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast'
 import {
   ArrowRightLeft,
+  BookOpen,
   Check,
   Copy,
   Download,
@@ -18,6 +19,7 @@ import {
   PenTool,
   Plus,
   RotateCcw,
+  ShoppingBag,
   Type,
 } from 'lucide-react'
 
@@ -32,6 +34,39 @@ const FONT_PRESETS = [
   { value: 'lemuria-ancient', label: 'Lemuria Ancient (Lebar)' },
   { value: 'lemuria-classic', label: 'Lemuria Classic (Rapat)' },
   { value: 'lemuria-sacred', label: 'Lemuria Sacred (Bercahaya)' },
+] as const
+
+const NOVEL_BOOKS = [
+  {
+    id: 'kelahiran',
+    series: 'Buku 1',
+    title: 'Arkhytirema: Kelahiran',
+    author: 'Dicky Zainal Arifin',
+    description: 'Kisah awal peradaban Lemurian dan kelahiran sosok Arkhytirema.',
+    price: 'Rp —',
+    cover: '/books/arkhytirema-kelahiran.jpg',
+    buyUrl: '',
+  },
+  {
+    id: 'krisis-gogoma',
+    series: 'Buku 2',
+    title: 'Arkhytirema: Krisis Gogoma',
+    author: 'Dicky Zainal Arifin',
+    description: 'Kelanjutan epik perjuangan menghadapi ancaman Krisis Gogoma.',
+    price: 'Rp —',
+    cover: '/books/arkhytirema-krisis-gogoma.jpg',
+    buyUrl: '',
+  },
+  {
+    id: 'shantya-duta',
+    series: 'Buku 3',
+    title: 'Arkhytirema: Shantya Duta',
+    author: 'Dicky Zainal Arifin',
+    description: 'Misi lintas semesta sang duta perdamaian dalam seri Shantya Duta.',
+    price: 'Rp —',
+    cover: '/books/arkhytirema-shantya-duta.jpg',
+    buyUrl: '',
+  },
 ] as const
 
 type FontPreset = (typeof FONT_PRESETS)[number]['value']
@@ -654,19 +689,115 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Info Footer */}
-        <footer className="glass-panel rounded-3xl p-4 sm:p-6 text-center max-w-3xl mx-auto">
-          <h3 className="text-base font-semibold text-slate-800 mb-1.5">
-            Tentang Aksara Lemuria
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Aksara Lemuria ditulis dari <strong className="text-sky-800">kanan ke kiri</strong> dan
-            ditampilkan menggunakan font asli <strong className="text-sky-800">Lemurian True Type</strong>.
-            Gunakan tombol panah bolak-balik di tengah untuk menukar posisi Latin dan Lemuria, serta
-            tombol <strong className="text-sky-800">Salin Gambar</strong> atau{' '}
-            <strong className="text-sky-800">Unduh PNG</strong> agar bentuk aksara tetap terjaga saat
-            dibagikan.
-          </p>
+        {/* Info Footer & Book Showcase */}
+        <footer className="glass-panel rounded-3xl p-5 sm:p-8 space-y-6">
+          <div className="text-center max-w-3xl mx-auto space-y-2">
+            <h3 className="text-lg sm:text-xl font-semibold text-slate-800">
+              Tentang Aksara Lemuria
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Aksara Lemuria ditulis dari <strong className="text-sky-800">kanan ke kiri</strong> dan
+              ditampilkan menggunakan font asli <strong className="text-sky-800">Lemurian True Type</strong>.
+              Gunakan tombol panah bolak-balik di tengah untuk menukar posisi Latin dan Lemuria, serta
+              tombol <strong className="text-sky-800">Salin Gambar</strong> atau{' '}
+              <strong className="text-sky-800">Unduh PNG</strong> agar bentuk aksara tetap terjaga saat
+              dibagikan.
+            </p>
+          </div>
+
+          <div className="border-t border-sky-200/70 pt-6 space-y-5">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-sky-100 to-blue-100 text-sky-600">
+                  <BookOpen className="h-4 w-4" />
+                </div>
+                <div>
+                  <h4 className="text-base font-semibold text-slate-800">
+                    Koleksi Novel Arkhytirema
+                  </h4>
+                  <p className="text-xs text-slate-500">
+                    Dapatkan seri novel resmi Legenda Lemurian
+                  </p>
+                </div>
+              </div>
+              <span className="rounded-full bg-sky-100/80 border border-sky-200/70 px-3 py-1 text-xs font-medium text-sky-700">
+                3 Seri Novel
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {NOVEL_BOOKS.map((book) => (
+                <article
+                  key={book.id}
+                  className="group flex flex-col overflow-hidden rounded-2xl bg-white/80 backdrop-blur-md border border-sky-100/90 shadow-xs hover:shadow-lg hover:shadow-sky-500/15 hover:border-sky-300/80 hover:-translate-y-1 transition-all"
+                >
+                  <div className="relative aspect-[3/4] w-full overflow-hidden bg-sky-50">
+                    <img
+                      src={book.cover}
+                      alt={book.title}
+                      className="h-full w-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-300"
+                      loading="lazy"
+                    />
+                    <span className="absolute top-3 left-3 rounded-full bg-white/90 backdrop-blur-md border border-white/80 px-2.5 py-0.5 text-[11px] font-semibold text-sky-800 shadow-xs">
+                      {book.series}
+                    </span>
+                  </div>
+
+                  <div className="flex flex-1 flex-col justify-between p-4 gap-3">
+                    <div className="space-y-1">
+                      <h5 className="text-sm sm:text-base font-semibold text-slate-800 leading-snug">
+                        {book.title}
+                      </h5>
+                      <p className="text-xs font-medium text-sky-700">
+                        Karya {book.author}
+                      </p>
+                      <p className="text-xs text-slate-500 leading-relaxed pt-1">
+                        {book.description}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-between gap-3 pt-3 border-t border-sky-100/80">
+                      <div>
+                        <span className="block text-[10px] uppercase tracking-wider text-slate-400 font-medium">
+                          Harga
+                        </span>
+                        <span className="text-sm font-bold text-sky-900">{book.price}</span>
+                      </div>
+
+                      {book.buyUrl ? (
+                        <Button
+                          asChild
+                          size="sm"
+                          className="rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white shadow-sm shadow-sky-500/20 text-xs"
+                        >
+                          <a href={book.buyUrl} target="_blank" rel="noopener noreferrer">
+                            <ShoppingBag className="w-3.5 h-3.5 mr-1.5" />
+                            Pesan Buku
+                          </a>
+                        </Button>
+                      ) : (
+                        <Button
+                          type="button"
+                          size="sm"
+                          onClick={() =>
+                            toast({
+                              title: book.title,
+                              description:
+                                'Placeholder penjualan aktif. Tautan pembelian dapat ditambahkan pada properti buyUrl.',
+                            })
+                          }
+                          className="rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white shadow-sm shadow-sky-500/20 text-xs cursor-pointer"
+                        >
+                          <ShoppingBag className="w-3.5 h-3.5 mr-1.5" />
+                          Pesan Buku
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
         </footer>
       </div>
     </div>
